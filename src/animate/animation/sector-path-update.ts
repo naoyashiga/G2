@@ -26,7 +26,8 @@ function getAngle(startPoint: number[], arcPath: PathCommand) {
     startAngle = Math.PI * -0.5;
   }
 
-  if (isNumberEqual(endAngle, Math.PI * -0.5)) {
+  // 当 startAngle, endAngle 接近相等时，不进行 endAngle = Math.PI * 1.5 防止变化从整个圆开始
+  if (isNumberEqual(endAngle, Math.PI * -0.5) && !isNumberEqual(startAngle, endAngle)) {
     endAngle = Math.PI * 1.5;
   }
 
@@ -57,7 +58,7 @@ function getArcStartPoint(path: PathCommand) {
  * 6. radial-line, 为整圆时的 path，命令为 M, A, A, A, A, Z
  * @param path theta 坐标系下圆弧的 path 命令
  */
-function getArcInfo(path: PathCommand[]) {
+export function getArcInfo(path: PathCommand[]) {
   let startAngle;
   let endAngle;
 
